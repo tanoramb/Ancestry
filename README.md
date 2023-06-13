@@ -10,6 +10,7 @@ Links:
 
 + [TABIX 0.2.6](https://sourceforge.net/projects/samtools/files/tabix/tabix-0.2.6.tar.bz2/download)
 + [BCFTOOLS 1.10.2](https://sourceforge.net/projects/samtools/files/samtools/1.10.2/bcftools-1.10.2.tar.bz2/download)
++ [SCRIPTS] (scripts)
 
 
 
