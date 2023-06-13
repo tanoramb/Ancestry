@@ -10,7 +10,7 @@ Links:
 
 + [TABIX 0.2.6](https://sourceforge.net/projects/samtools/files/tabix/tabix-0.2.6.tar.bz2/download)
 + [BCFTOOLS 1.10.2](https://sourceforge.net/projects/samtools/files/samtools/1.10.2/bcftools-1.10.2.tar.bz2/download)
-+ ([SCRIPTS](https://github.com/tanoramb/Ancestry/tree/eaf4b0bf5a445748de9eccc83b78c008d61b2b34/scripts))
++ [SCRIPTS](https://github.com/tanoramb/Ancestry/tree/eaf4b0bf5a445748de9eccc83b78c008d61b2b34/scripts)
 
 
 
