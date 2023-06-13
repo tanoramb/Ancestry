@@ -29,7 +29,7 @@ ${PARALLEL} -j ${NCPU} -r "bgzip 1KG_PEL_chr*.recode.rmd.vcf" $(seq 1 22)
 ${PARALLEL} -j ${NCPU} -r "${TABIX} -p vcf 1KG_PEL_chr*.recode.rmd.vcf.gz" $(seq 1 22)
 ```
 
-If the VCF files must be further processed to remove samples:
+If the VCF files must be further processed to remove/keep samples:
 
 ```
 BCFTOOLS="/path/to/software/BCFTools/bcftools-1.10.2/bcftools"
@@ -37,8 +37,8 @@ BCFTOOLS="/path/to/software/BCFTools/bcftools-1.10.2/bcftools"
 # VCF files are gunzipped
 ${PARALLEL} -j ${NCPU} -r "gunzip -k 1KG_PEL_chr*.recode.rmd.vcf.gz" $(seq 1 22)
 
-IDS90="ids_pel_ge90.txt" # Text file containing Sample IDs to remove from VCF file. In this case, those Samples with less than 90% Native-American ancestry (analysis done elsewhere)
-IDS95="ids_pel_ge95.txt" # Text file containing Sample IDs to remove from VCF file. In this case, those Samples with less than 95% Native-American ancestry (analysis done elsewhere)
+IDS90="ids_pel_ge90.txt" #Text file containing Sample IDs to keep from VCF file. In this case, those Samples with more than 90% Native-American ancestry (analysis done elsewhere)
+IDS95="ids_pel_ge95.txt" #Text file containing Sample IDs to keep from VCF file. In this case, those Samples with more than 95% Native-American ancestry (analysis done elsewhere)
 
 ${PARALLEL} -j ${NCPU} -r "gunzip -k 1KG_PEL_chr*.recode.rmd.vcf.gz" $(seq 1 22)
 for PCT in 90 95; do
