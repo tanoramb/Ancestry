@@ -50,3 +50,11 @@ done
 \rm -rf .tmp* *.vcf
 
 ```
+
+## 2. Data preparation
+
+
+
+
+## 3. Ancestry calculation
+
