@@ -4,7 +4,11 @@ Steps for performing ancestry analisis using RFMix 1.5 or 2.0 and ShapeIT or Bea
 
 ## 1. Data preparation
 
-We have to process original data (VCF files) by removing duplications, and we do it for each chromosome in a parallel fashion:
+We have to process original data (VCF files) by removing duplications, and we do it for each chromosome in a parallel fashion.
+Links:
+[TABIX](https://sourceforge.net/projects/samtools/files/tabix/tabix-0.2.6.tar.bz2/download)
+
+
 
 ```
 #! /bin/bash
