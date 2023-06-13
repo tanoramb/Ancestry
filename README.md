@@ -18,10 +18,33 @@ RMD="/path/to/script/remove_duplicate_by_pos.py"
 TABIX="/path/to/software/Tabix/tabix-0.2.6/tabix"
 PARALLEL="/path/to/script/parallel.sh"
 
-NCPU=22
+NCPU=10 #Number of CPUs
 
+# VCF files are named as "1KG_PEL_chr*.recode.vcf" where "*" is the number of the chromosome 1 through 22
+# Then the VCF files are processed to remove duplicated positions, bgzipped, and indexed.
 ${PARALLEL} -j ${NCPU} -r "${RMD} -i 1KG_PEL_chr*.recode.vcf -o 1KG_PEL_chr*.recode.rmd.vcf > rmd.chr*.log 2>&1" $(seq 1 22)
 ${PARALLEL} -j ${NCPU} -r "bgzip 1KG_PEL_chr*.recode.rmd.vcf" $(seq 1 22)
 ${PARALLEL} -j ${NCPU} -r "${TABIX} -p vcf 1KG_PEL_chr*.recode.rmd.vcf.gz" $(seq 1 22)
+```
+
+If the VCF files must be further processed to remove samples:
+
+```
+BCFTOOLS="/path/to/software/BCFTools/bcftools-1.10.2/bcftools"
+
+# VCF files are gunzipped
 ${PARALLEL} -j ${NCPU} -r "gunzip -k 1KG_PEL_chr*.recode.rmd.vcf.gz" $(seq 1 22)
+
+IDS90="ids_pel_ge90.txt" # Text file containing Sample IDs to remove from VCF file. In this case, those Samples with less than 90% Native-American ancestry (analysis done elsewhere)
+IDS95="ids_pel_ge95.txt" # Text file containing Sample IDs to remove from VCF file. In this case, those Samples with less than 95% Native-American ancestry (analysis done elsewhere)
+
+${PARALLEL} -j ${NCPU} -r "gunzip -k 1KG_PEL_chr*.recode.rmd.vcf.gz" $(seq 1 22)
+for PCT in 90 95; do
+    IDS="ids_pel_ge${PCT}.txt"
+    ${PARALLEL} -j ${NCPU} -r "${BCFTOOLS} view -S ${IDS} 1KG_PEL_chr*.recode.rmd.vcf > 1KG_PEL_chr*.recode.rmd.ge${PCT}.vcf" $(seq 1 22)
+    ${PARALLEL} -j ${NCPU} -r "bgzip 1KG_PEL_chr*.recode.rmd.ge${PCT}.vcf" $(seq 1 22)
+    ${PARALLEL} -j ${NCPU} -r "${TABIX} -p vcf 1KG_PEL_chr*.recode.rmd.ge${PCT}.vcf.gz" $(seq 1 22)
+done
+\rm -rf .tmp* *.vcf
+
 ```
