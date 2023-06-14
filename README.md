@@ -53,7 +53,18 @@ done
 
 ## 2. Data preparation
 
+In this step, the data will be prepared to calculate the local ancestry later. The step involves:
++ 
 
+```
+#! /bin/bash
+  
+NCPU=8
+
+PARALLEL="/path/to/script/parallel.sh"
+SCRIPT="/path/to/script/get_data_for_localglobal_ancestry_chr_pel_ibs_yri_chi271_pel90_beagle5_rfmix15_20.sh"
+${PARALLEL} -j ${NCPU} -r "${SCRIPT} -c=* > data.chr*.log 2>&1" 1 22 2 21 3 20 4 19 5 18 6 17 7 16 8 15 9 14 10 13 11 12
+```
 
 
 ## 3. Ancestry calculation
