@@ -1,4 +1,6 @@
 #! /bin/bash
+# Author: Tomas Norambuena A.
+# email: tanoramb@gmail.com
 
 TSTART=$(date +%s)
 
