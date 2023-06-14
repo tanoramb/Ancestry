@@ -68,7 +68,7 @@ Links:
 + [SHAPEIT](https://mathgen.stats.ox.ac.uk/genetics_software/shapeit/shapeit.html)
 + [PLINK 1](https://zzz.bwh.harvard.edu/plink/download.shtml#download)
 + [PLINK 2](https://www.cog-genomics.org/plink/2.0/)
-+ [VCFTOOLS](https://vcftools.github.io/man_latest.html))
++ [VCFTOOLS](https://vcftools.github.io/man_latest.html)
 + [SCRIPTS](https://github.com/tanoramb/Ancestry/tree/eaf4b0bf5a445748de9eccc83b78c008d61b2b34/scripts)
 
 ```
