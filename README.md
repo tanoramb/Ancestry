@@ -75,7 +75,7 @@ Links:
 #! /bin/bash
 # Script that calls the master script for all chromosomes in a parallel fashion for each chromosome
   
-NCPU=8
+NCPU=10 #Number of CPUs
 
 PARALLEL="/path/to/script/parallel.sh"
 SCRIPT="/path/to/script/master_script_data_beagle5_rfmix15and20.sh"
