@@ -60,7 +60,7 @@ In this step, the data will be prepared to calculate the local ancestry later. T
 + Getting VCF files containing reference positions (in this case, Chilean positions).
 + Intersecting all VCF files and correcting genotypes (e.g. strand issues).
 + Phasing the intersected/corrected genotypes (using Beagle5 or ShapeIT).
-+ Generating proper input files for RFmix 1.5 or RFmix 2.0.
++ Generating proper input files for RFMix 1.5 or RFMix 2.0.
 
 Links:
 
