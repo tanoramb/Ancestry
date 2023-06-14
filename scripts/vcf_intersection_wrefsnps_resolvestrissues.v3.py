@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
+# Author: Tomas Norambuena A.
+# email: tanoramb@gmail.com
 
 import pysam
 import vcfpy
