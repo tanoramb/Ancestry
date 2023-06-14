@@ -16,9 +16,9 @@ Links:
 
 ```
 #! /bin/bash
-RMD="/path/to/script/remove_duplicate_by_pos.py"
+RMD="/path/to/script/remove_duplicate_by_pos.py" #e.g. /data/tanoramb/Scripts/v2/remove_duplicate_by_pos.py in Astro
 TABIX="/path/to/software/Tabix/tabix-0.2.6/tabix"
-PARALLEL="/path/to/script/parallel.sh"
+PARALLEL="/path/to/script/parallel.sh" #e.g. /data/tanoramb/Scripts/other/parallel.sh in Astro 
 
 NCPU=10 #Number of CPUs
 
@@ -77,7 +77,7 @@ Links:
   
 NCPU=10 #Number of CPUs
 
-PARALLEL="/path/to/script/parallel.sh"
+PARALLEL="/path/to/script/parallel.sh" #e.g. /data/tanoramb/Scripts/other/parallel.sh in Astro
 SCRIPT="/path/to/script/master_script_data_beagle5_rfmix15and20.sh"
 #SCRIPT="/path/to/script/master_script_data_shapeit_rfmix20.sh" #If the phasing must be done using ShapeIT and RFMix 2.0 only
 ${PARALLEL} -j ${NCPU} -r "${SCRIPT} -c=* > data.chr*.log 2>&1" 1 22 2 21 3 20 4 19 5 18 6 17 7 16 8 15  9 14 10 13 11 12
@@ -103,7 +103,7 @@ For the case of RFMix 2.0:
   
 NCPU=10 #Number of CPUs
 
-PARALLEL="/path/to/script/parallel.sh"
+PARALLEL="/path/to/script/parallel.sh" #e.g. /data/tanoramb/Scripts/other/parallel.sh in Astro
 
 RFMIX20="/path/to/Software/RFmix/RFMix2/rfmix"  #e.g. /data/tanoramb/Software/RFmix/RFMix2/rfmix in Astro
 MAPS="/path/to/Data/recombinationmaps/rfmix" #e.g. /data/tanoramb/Data/recombinationmaps/rfmix in Astro
