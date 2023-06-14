@@ -37,17 +37,13 @@ BEGLE5CMD="java -Xmx10g -jar ${BEAGLE5}"
 SHAPEIT2="/data/tanoramb/Software/Shapeit/shapeit.v2.904.3.10.0-693.11.6.el7.x86_64/bin/shapeit"
 INTERSEC="/data/tanoramb/Scripts/v2/vcf_intersection_wrefsnps_resolvestrissues.v2.py"
 TABIX="/data/tanoramb/Software/Tabix/tabix-0.2.6/tabix"
-FORMATRFMIX15="/data/tanoramb/Scripts/v2/format_vcf_to_rfmix15.py"
 PLINK1="/data/tanoramb/Software/Plink1/plink"
 PLINK2="/data/tanoramb/Software/Plink2/plink2"
-LAMPLPGEN="/data/tanoramb/Scripts/v2/phased_vcf_to_lampld_genfile.py"
-LAMPLPHAP="/data/tanoramb/Scripts/v2/phased_vcf_to_lampld_hapfile.py"
 VCFMERGE="/data/tanoramb/Software/VCFTools/vcftools-vcftools-15db94b/src/perl/vcf-merge"
 
 MAPDIR="/data/tanoramb/Data/recombinationmaps/beagle5"
 MAPDIR2="/data/tanoramb/Data/recombinationmaps/impute2"
-#GOT FROM https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html
-SHAPEITDATA="/data/tanoramb/Data/shapeit_ref/1000GP_Phase3"
+SHAPEITDATA="/data/tanoramb/Data/shapeit_ref/1000GP_Phase3" #GOT FROM https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html
 
 CHI="/data/tanoramb/Data/chi271"
 PEL="/data/tanoramb/Data/peruvian"
