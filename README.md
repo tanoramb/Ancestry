@@ -175,6 +175,6 @@ for CHR in $(seq 1 22); do
 done
 ```
 
-Any request at tanoramb@gmail.com
+Any request to tanoramb@gmail.com
 
 
