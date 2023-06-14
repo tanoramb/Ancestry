@@ -81,6 +81,14 @@ PARALLEL="/path/to/script/parallel.sh"
 SCRIPT="/path/to/script/master_script_data_beagle5_rfmix15and20.sh"
 #SCRIPT="/path/to/script/master_script_data_shapeit_rfmix20.sh" #If the phasing must be done using ShapeIT and RFMix 2.0 only
 ${PARALLEL} -j ${NCPU} -r "${SCRIPT} -c=* > data.chr*.log 2>&1" 1 22 2 21 3 20 4 19 5 18 6 17 7 16 8 15  9 14 10 13 11 12
+
+#IF RFMix 2.0 is run later
+POPS=("PEL" "IBS" "YRI")
+echo "" > refs.sample_map.tsv; :> refs.sample_map.tsv
+for POP in ${POPS[*]}; do
+    name=$(echo ${POP} | awk '{print tolower($0)}')
+    gunzip -c phased.intersected.norm.${name}.chr22.vcf.gz | grep "#CHROM" | cut -f10- | sed 's/\t/\n/g' | awk -v group="${POP}" '{print $1"\t"group}' >> refs.sample_map.tsv
+done
 ```
 
 
