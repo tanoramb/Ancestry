@@ -73,7 +73,7 @@ Links:
 
 ```
 #! /bin/bash
-# Script that calls the master script for all chromosomes in a parellel fashion
+# Script that calls the master script for all chromosomes in a parallel fashion for each chromosome
   
 NCPU=8
 
