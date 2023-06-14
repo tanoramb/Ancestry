@@ -69,7 +69,7 @@ Links:
 + [PLINK 1](https://zzz.bwh.harvard.edu/plink/download.shtml#download)
 + [PLINK 2](https://www.cog-genomics.org/plink/2.0/)
 + [VCFTOOLS](https://vcftools.github.io/man_latest.html)
-+ [SCRIPTS]((https://github.com/tanoramb/Ancestry/tree/c0557df321d6513d211e4993f941c39fe6e1a57a/scripts))
++ [SCRIPTS](https://github.com/tanoramb/Ancestry/tree/c0557df321d6513d211e4993f941c39fe6e1a57a/scripts)
 
 ```
 #! /bin/bash
