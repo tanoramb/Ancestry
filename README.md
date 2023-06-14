@@ -62,7 +62,7 @@ In this step, the data will be prepared to calculate the local ancestry later. T
 NCPU=8
 
 PARALLEL="/path/to/script/parallel.sh"
-SCRIPT="/path/to/script/get_data_for_localglobal_ancestry_chr_pel_ibs_yri_chi271_pel90_beagle5_rfmix15_20.sh"
+SCRIPT="/path/to/script/master_script_data_beagle5_rfmix15and20.sh"
 ${PARALLEL} -j ${NCPU} -r "${SCRIPT} -c=* > data.chr*.log 2>&1" 1 22 2 21 3 20 4 19 5 18 6 17 7 16 8 15 9 14 10 13 11 12
 ```
 
