@@ -53,8 +53,14 @@ done
 
 ## 2. Data preparation
 
-In this step, the data will be prepared to calculate the local ancestry later. The step involves:
-+ 
+In this step, the data will be prepared to calculate the local ancestry later. The steps described in the master script (per chromosome) involve:
+
++ Defining variables to store paths to scipts and software.
++ Defining variables to store paths to relevant input data.
++ Getting VVF files containing reference positions (in this case, Chilean positions).
++ Intersecting all VCF files and correcting genotypes.
++ Phasing the intersected/corrected genotypes (using Beagle5 or ShapeIT).
++ Generating proper input files for RFmix 1.5 or RFmix 2.0.
 
 ```
 #! /bin/bash
