@@ -53,7 +53,7 @@ done
 
 ## 2. Data preparation
 
-In this step, the data will be prepared to calculate the local ancestry later. The steps described in the master script (per chromosome) involve:
+In this step, the data will be prepared to calculate the local ancestry later. The steps described in the [Master script](https://github.com/tanoramb/Ancestry/blob/c0557df321d6513d211e4993f941c39fe6e1a57a/scripts/master_script_data_beagle5_rfmix15and20.sh) (per chromosome) involve:
 
 + Defining variables to store paths to scripts and software.
 + Defining variables to store paths to relevant input data.
