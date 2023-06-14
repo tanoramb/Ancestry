@@ -34,35 +34,35 @@ if [[ "${CHR}" -lt 1 || "${CHR}" -gt 22 ]]; then
     exit 1
 fi
 
-BEAGLE5="/data/tanoramb/Software/Beagle/beagle.12Jul19.0df.jar"
+#ALL this software and data are avalibale in path "/data/tanoramb" from the server astro (replace with "/path/to")
+BEAGLE5="/path/to/Software/Beagle/beagle.12Jul19.0df.jar"
 #BEGLE5CMD="java -Xmx10g -jar ${BEAGLE5}"
-BEGLE5CMD="java -Xmx15g -jar ${BEAGLE5}"
-SHAPEIT2="/data/tanoramb/Software/Shapeit/shapeit.v2.904.3.10.0-693.11.6.el7.x86_64/bin/shapeit"
-INTERSEC="/data/tanoramb/Scripts/v2/vcf_intersection_wrefsnps_resolvestrissues.v3.py"
-TABIX="/data/tanoramb/Software/Tabix/tabix-0.2.6/tabix"
-FORMATRFMIX15="/data/tanoramb/Scripts/v2/format_vcf_to_rfmix15.py"
-PLINK1="/data/tanoramb/Software/Plink1/plink"
-PLINK2="/data/tanoramb/Software/Plink2/plink2"
-LAMPLPGEN="/data/tanoramb/Scripts/v2/phased_vcf_to_lampld_genfile.py"
-LAMPLPHAP="/data/tanoramb/Scripts/v2/phased_vcf_to_lampld_hapfile.py"
-VCFMERGE="/data/tanoramb/Software/VCFTools/vcftools-vcftools-15db94b/src/perl/vcf-merge"
+BEGLE5CMD="java -Xmx15g -jar ${BEAGLE5}" #In the case java needs more memory
+SHAPEIT2="/path/to/Software/Shapeit/shapeit.v2.904.3.10.0-693.11.6.el7.x86_64/bin/shapeit"
+INTERSEC="/path/to/Scripts/v2/vcf_intersection_wrefsnps_resolvestrissues.v3.py"
+TABIX="/path/to/Software/Tabix/tabix-0.2.6/tabix"
+FORMATRFMIX15="/path/to/Scripts/v2/format_vcf_to_rfmix15.py"
+PLINK1="/path/to/Software/Plink1/plink"
+PLINK2="/path/to/Software/Plink2/plink2"
+VCFMERGE="/path/to/Software/VCFTools/vcftools-vcftools-15db94b/src/perl/vcf-merge"
 
-MAPDIR="/data/tanoramb/Data/recombinationmaps/beagle5"
-MAPDIR2="/data/tanoramb/Data/recombinationmaps/impute2"
-#GOT FROM https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html
-SHAPEITDATA="/data/tanoramb/Data/shapeit_ref/1000GP_Phase3"
+MAPDIR="/path/to/Data/recombinationmaps/beagle5" #Directory containing recombination maps for Beagle
+MAPDIR2="/path/to/Data/recombinationmaps/impute2" #Directory containing recombination maps for ShapeIT
+SHAPEITDATA="/path/to/Data/shapeit_ref/1000GP_Phase3" #GOT FROM https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3.html
 
-CHI="/data/tanoramb/Data/chi271"
-PEL="/data/tanoramb/Data/peruvian"
-IBS="/data/tanoramb/Data/iberian"
-YRI="/data/tanoramb/Data/yoruba"
+#Paths to pre-processed VCF files 
+CHI="/path/to/Data/chi271"
+PEL="/path/to/Data/peruvian"
+IBS="/path/to/Data/iberian"
+YRI="/path/to/Data/yoruba"
 
-mkdir -p rfmix15_files
+mkdir -p rfmix15_files #For RFmix 1.5 special files are stored in a directory
 
 POPS=("PEL" "IBS" "YRI")
 
 SETS=()
 
+# Getting VCF files containing reference positions (in this case, Chilean positions)
 gunzip -c ${CHI}/chi271.chr${CHR}.rmd.vcf.gz | sed '/^#/d' | cut -f2 > onlypos_chr${CHR}.txt
 gunzip -c ${IBS}/1KG_IBS_chr${CHR}.recode.rmd.vcf.gz | sed '/^#/d' | grep -w -f onlypos_chr${CHR}.txt | cut -f1,2,4,5 > pos_chr${CHR}.txt
 cut -f2 pos_chr${CHR}.txt > .tmp.pos_chr${CHR}
@@ -84,19 +84,21 @@ for POP in ${POPS[*]}; do
     SETS+=("${name}.chr${CHR}.vcf")
 done
 
-
+# Intersecting all VCF files and correcting genotypes
 ${INTERSEC} -s pos_chr${CHR}.txt -i $(echo ${SETS[@]} | tr ' ' ',') -o common_positions.chr${CHR}.txt -p > localancestry.data.chr${CHR}.log 2>&1
 bgzip intersected.norm.chi.chr${CHR}.vcf
 ${TABIX} -p vcf intersected.norm.chi.chr${CHR}.vcf.gz
 
+# Phasing the intersected/corrected genotypes using Beagle5
 ${BEGLE5CMD} map=${MAPDIR}/plink.chr${CHR}.GRCh37.map gt=intersected.norm.chi.chr${CHR}.vcf.gz out=phased.intersected.norm.chi.chr${CHR} >> localancestry.data.chr${CHR}.log 2>&1
 gunzip phased.intersected.norm.chi.chr${CHR}.vcf.gz
 bgzip phased.intersected.norm.chi.chr${CHR}.vcf
 ${TABIX} -p vcf phased.intersected.norm.chi.chr${CHR}.vcf.gz
 gunzip -k phased.intersected.norm.chi.chr${CHR}.vcf.gz
 
-${FORMATRFMIX15} -i phased.intersected.norm.chi.chr${CHR}.vcf -o phased.intersected.norm.chi.chr${CHR}.rfmix15.hap >> localancestry.data.chr${CHR}.log 2>&1
+# Generating proper input files for RFmix 1.5
 
+${FORMATRFMIX15} -i phased.intersected.norm.chi.chr${CHR}.vcf -o phased.intersected.norm.chi.chr${CHR}.rfmix15.hap >> localancestry.data.chr${CHR}.log 2>&1
 CLASS=0
 ln -s phased.intersected.norm.chi.chr${CHR}.rfmix15.hap .tmp.chi.${CLASS}.${CHR}.hap
 grep "CHROM" phased.intersected.norm.chi.chr${CHR}.vcf | cut -f10- | tr '\t' '\n' | awk -v c=${CLASS} 'BEGIN{s=""}{s=s c " " c " "}END{print substr(s,1,length(s)-1)}' > phased.intersected.norm.chi.chr${CHR}.rfmix15.class
@@ -114,7 +116,7 @@ CLASS=1
 for POP in ${POPS[*]}; do
     name=$(echo ${POP} | awk '{print tolower($0)}')
     bgzip intersected.norm.${name}.chr${CHR}.vcf
-    ## 1000G genomes are already phased so Beagle.v5 call is skipped
+    ## 1000G genomes are already phased so Beagle.v5 call is skipped <--- IMPORTANT
     cp intersected.norm.${name}.chr${CHR}.vcf.gz phased.intersected.norm.${name}.chr${CHR}.vcf.gz
     #${TABIX} -p vcf intersected.norm.${name}.chr${CHR}.vcf.gz
     #${BEGLE5CMD} map=${MAPDIR}/plink.chr${CHR}.GRCh37.map gt=intersected.norm.${name}.chr${CHR}.vcf.gz out=phased.intersected.norm.${name}.chr${CHR} >> localancestry.data.chr${CHR}.log 2>&1
@@ -138,7 +140,7 @@ done
 paste -d " " ${CLSSET[@]} > rfmix15_files/rfmix15.chr${CHR}.rfmix15.class
 paste -d "" ${HAPSET[@]} > rfmix15_files/rfmix15.chr${CHR}.rfmix15.hap
 
-
+# This steps are needed if Admixture is run later
 ${VCFMERGE} -d -t -s -c none -R "0|0" ${ALL[@]} > phased.intersected.norm.ALL.chr${CHR}.vcf
 bgzip phased.intersected.norm.ALL.chr${CHR}.vcf
 ${TABIX} -p vcf phased.intersected.norm.ALL.chr${CHR}.vcf.gz
